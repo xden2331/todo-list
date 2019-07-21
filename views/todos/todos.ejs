@@ -1,9 +1,20 @@
+<%- include ../partials/header %>
+
 <h1>TODO PAGE</h1>
 
 <ul>
     <% todos.forEach((todo) => { %>
-        <li><em><%= todo.todo %></em> - <%= todo.dueDate %></li>
+        <li>
+            <span>
+                <form action='/todos/<%=todo._id%>?_method=DELETE' method='POST' style='display: inline-block;'>
+                    <button type="submit" class="btn btn-outline-danger py-0" style="height: 100%;">DELETE</button>
+                </form>
+            </span>
+            <em><%= todo.todo %></em> - <%= todo.dueDate.toDateString() %>
+        </li>
     <% }) %>
 </ul>
 
 <a href='/todos/new'>MAKE TODO</a>
+
+<%- include ../partials/footer %>

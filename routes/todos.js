@@ -4,20 +4,16 @@
 const express = require("express");
 const router = express.Router();
 
-var todos = [
-    {
-        todo: "WALK DOGS",
-        dueDate: "2019/07/24"
-    },
-    {
-        todo: "WALK CATS",
-        dueDate: "2019/07/25"
-    }
-    ];
-
+var Todo = require("../models/todo");
 // SHOW ALL TODOS
 router.get('/', (req, res) => {
-    res.render('./todos/todos', {todos: todos});
+    Todo.find({}, (err, todos) => {
+        if(err || !todos){
+            console.log((!todos ? "Not found" : err));
+        } else {
+            res.render('./todos/todos', {todos: todos});
+        }
+    });
 });
 
 router.get('/new', (req, res) => {
@@ -25,8 +21,16 @@ router.get('/new', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    todos.push(req.body.todo);
-    res.redirect('/todos');
+    Todo.create(req.body.todo, (err, todo) => {
+        return (err ? console.log(err) : res.redirect('/todos'));
+    })
+});
+
+router.delete('/:id', (req, res) => {
+    var id = req.params.id;
+    Todo.findByIdAndDelete(id, (err, removedTodo) => {
+       return (err ? console.log(err) : res.redirect('/todos')); 
+    });
 });
 
 module.exports = router;
