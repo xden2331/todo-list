@@ -1,0 +1,9 @@
+<h1>TODO PAGE</h1>
+
+<ul>
+    <% todos.forEach((todo) => { %>
+        <li><em><%= todo.todo %></em> - <%= todo.dueDate %></li>
+    <% }) %>
+</ul>
+
+<a href='/todos/new'>MAKE TODO</a>
