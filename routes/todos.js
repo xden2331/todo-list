@@ -8,8 +8,8 @@ const isLoggedIn = require('../utility/utility.js').isLoggedIn;
 
 var Todo = require("../models/todo");
 // SHOW ALL TODOS
-router.get('/', (req, res) => {
-  Todo.find({}, (err, todos) => {
+router.get('/', isLoggedIn, (req, res) => {
+  Todo.find({author : req.user._id}, (err, todos) => {
     if (err || !todos) {
       console.log((!todos ? "Not found" : err));
     } else {
@@ -20,17 +20,21 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
   res.render('./todos/new');
 });
 
-router.post('/', (req, res) => {
-  Todo.create(req.body.todo, (err, todo) => {
+router.post('/', isLoggedIn, (req, res) => {
+  Todo.create({
+    todo: req.body.todo,
+    dueDate: req.body.dueDate,
+    author: req.user._id
+  }, (err, todo) => {
     return (err ? console.log(err) : res.redirect('/todos'));
   })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isLoggedIn, (req, res) => {
   var id = req.params.id;
   Todo.findByIdAndDelete(id, (err, removedTodo) => {
     return (err ? console.log(err) : res.redirect('/todos'));

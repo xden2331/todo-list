@@ -31,14 +31,12 @@ mongoose.connect('mongodb+srv://xden2331:XDen2331@cluster0-z17gi.mongodb.net/tod
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
-app.use('/todos', todoRoutes);
-app.use(authRoutes);
+
 app.use(require("express-session")({
 	secret: "Red Velvet",
 	resave: false,
 	saveUninitialized: false
 }));
-
 passport.use(User.createStrategy());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -49,6 +47,9 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
+
+app.use('/todos', todoRoutes);
+app.use(authRoutes);
 
 // ============
 // ROUTES
