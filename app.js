@@ -48,6 +48,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static(__dirname+'/public'));
+
 app.use('/todos', todoRoutes);
 app.use(authRoutes);
 

@@ -1,7 +1,19 @@
 <%- include ./partials/header %>
 
-<h1>LANDING PAGE EJS</h1>
-
-<a href='/todos'>GO TO TODO PAGE</a>
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-4">Richard's Todo app</h1>
+    <p class="lead">This is a simple full-stack application.</p>
+    <hr class="my-4">
+    <p>It use the following techniques:
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Express</li>
+        <li class="list-group-item">MongoDB</li>
+        <li class="list-group-item">Node JS</li>
+      </ul>
+    </p>
+    <a class="btn btn-primary btn-lg" href="/todos" role="button">Go to todo page!</a>
+  </div>
+</div>
 
 <%- include ./partials/footer %>

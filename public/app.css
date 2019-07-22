@@ -1,0 +1,18 @@
+body{
+  background-position: top;
+  background-size: cover;
+  background-repeat: repeat;
+  transition: 750ms;
+}
+
+.jumbotron {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+form {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.d-flex {
+  margin-top: 20%;
+}
